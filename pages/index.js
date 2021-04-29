@@ -31,7 +31,7 @@ export default function Home({ posts }) {
   }, [posts]);
 
   return (
-    <div>
+    <div className={styles.app}>
       <Toolbar />
       <div className={styles.main}>
         <h1>Welcome To My Blog</h1>

@@ -1,6 +1,22 @@
-.main h1,
+.app::-webkit-scrollbar {
+  display: none;
+}
+
+.app {
+  background-color: rgba(235, 235, 235, 0.611);
+  height: 100vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.main h1 {
+  text-align: center;
+  margin-top: 100px;
+}
 .main h3 {
   text-align: center;
+  margin-top: 20px;
 }
 .feed {
   display: flex;
@@ -9,11 +25,14 @@
 }
 .post {
   margin: 25px;
-  width: 500px;
-  height: 316px;
+  width: 600px;
+  height: 400px;
   cursor: pointer;
   text-align: center;
   max-width: calc(100vw - 50px);
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 1px 0px 3px rgb(170, 170, 170);
 }
 .mainImage {
   width: 500px;
