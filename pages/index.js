@@ -5,10 +5,15 @@ import { Toolbar } from '../components/toolbar';
 import imageUrlBuilder from '@sanity/image-url';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 export default function Home({ posts }) {
   const router = useRouter();
   const [mappedPosts, setMappedPosts] = useState([]);
+  const [content, setContent] = useState(false);
 
   useEffect(() => {
     if (posts.length) {
@@ -30,14 +35,43 @@ export default function Home({ posts }) {
     }
   }, [posts]);
 
+  const changeBackground = () => {
+    if (window.scrollY >= 100) {
+      setContent(true);
+    } else {
+      setContent(false);
+    }
+  };
+
+  if (typeof window !== 'undefined') {
+    // browser code
+    window.addEventListener('scroll', changeBackground);
+  }
+
   return (
-    <div className={styles.app}>
-      <Toolbar />
+    <div className={content ? styles.appScrolled : styles.app}>
+      <Toolbar content={content} />
       <div className={styles.main}>
-        <h1>Welcome To My Blog</h1>
-
+        <h1>Welcome To The Devs Universe</h1>
+        <h1>This Blog is coded with passion & love for web devloping</h1>
         <h3>Recent Posts:</h3>
-
+        <div className={styles.buttons}>
+          {' '}
+          <div onClick={() => (window.location.href = 'https://twitter.com/')}>
+            <TwitterIcon />
+          </div>
+          <div onClick={() => (window.location.href = 'https://github.com/')}>
+            <GitHubIcon />
+          </div>
+          <div
+            onClick={() => (window.location.href = 'https://instagram.com/')}>
+            <InstagramIcon />
+          </div>
+          <div
+            onClick={() => (window.location.href = 'https://instagram.com/')}>
+            <LinkedInIcon />
+          </div>
+        </div>
         <div className={styles.feed}>
           {mappedPosts.length ? (
             mappedPosts.map((p, index) => (

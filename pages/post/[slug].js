@@ -15,10 +15,30 @@ export const Post = ({ title, body, image }) => {
     setImageUrl(imageBuilder.image(image));
   }, [image]);
 
+  if (typeof window !== 'undefined') {
+    //scroll-progress
+    window.onscroll = function () {
+      myFunction();
+    };
+
+    const myFunction = () => {
+      var winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      var height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      var myBar = document.getElementById('myBar');
+      if (myBar) {
+        document.getElementById('myBar').style.width = scrolled + '%';
+      }
+    };
+  }
+
   return (
     <div>
       <Toolbar />
-      <div className={styles.progress}></div>
+      <div id="myBar" className={styles.progress}></div>
       <div className={styles.main}>
         <h1>{title}</h1>
         {imageUrl && <img className={styles.mainImage} src={imageUrl} />}

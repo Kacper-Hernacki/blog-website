@@ -3,11 +3,23 @@
 }
 
 .app {
-  background-color: rgba(235, 235, 235, 0.611);
-  height: 100vh;
+  background-color: #2f3640;
+  color: white;
+  height: 100%;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  transition: ease-in-out 1000ms;
+}
+
+.appScrolled {
+  background-color: #f4f6f6;
+  color: #2f3640;
+  height: 100%;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  transition: ease-in-out 1000ms;
 }
 
 .main h1 {
@@ -44,4 +56,24 @@
 .post:hover .mainImage {
   width: 490px;
   transition: 0.2s;
+}
+
+.buttons {
+  position: fixed;
+  top: 50%;
+  right: 10%;
+}
+
+.buttons div {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 100%;
+  background-color: black;
+}
+
+.main .buttons div .MuiSvgIcon-root {
 }
