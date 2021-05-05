@@ -22,10 +22,10 @@
 .progress {
   margin-top: 0px;
   padding: 0px;
-  background: rgb(74, 177, 157) none repeat scroll 0% 0%;
+  background: #9dc8eb none repeat scroll 0% 0%;
   position: fixed;
   height: 5px;
-  top: 50px;
+  top: 70px;
   z-index: 99;
   transition: width 200ms ease-out 0s;
   width: 1%;
