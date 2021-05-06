@@ -10,13 +10,32 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import groq from 'groq';
+import client from '../client';
+
+export async function getStaticProps() {
+  const query = groq`
+  {
+    "posts": *[_type == "post"]{title, mainImage, publishedAt,
+    'categories': categories[]->title,
+    'authorName': author->name,
+    'authorSlug': author->slug,
+  }
+  }`;
+  const data = await client.fetch(query);
+
+  return {
+    props: {
+      posts: data.posts,
+    },
+  };
+}
 
 export default function Home({ posts }) {
   const router = useRouter();
   const [mappedPosts, setMappedPosts] = useState([]);
   const [content, setContent] = useState(false);
 
-  console.log(posts);
+  console.table(posts);
 
   useEffect(() => {
     if (posts.length) {
@@ -24,7 +43,6 @@ export default function Home({ posts }) {
         projectId: '78wde2tk',
         dataset: 'production',
       });
-
       setMappedPosts(
         posts.map((p) => {
           return {
@@ -37,8 +55,6 @@ export default function Home({ posts }) {
       setMappedPosts([]);
     }
   }, [posts]);
-
-  console.table(mappedPosts);
 
   const changeBackground = () => {
     if (window.scrollY >= 100) {
@@ -91,8 +107,10 @@ export default function Home({ posts }) {
                 className={styles.post}>
                 <img className={styles.mainImage} src={p.mainImage} />
                 <h3>{p.title}</h3>
+
+                {p.categories && <p>#{p.categories[0]}</p>}
                 <p>
-                  By {p.authorName} {new Date(p._createdAt).toDateString()}
+                  By {p.authorName} on {new Date(p.publishedAt).toDateString()}
                 </p>
               </div>
             ))
@@ -110,22 +128,22 @@ export default function Home({ posts }) {
   );
 }
 
-export const getServerSideProps = async (pageContext) => {
-  const query = encodeURIComponent('*[ _type == "post" ]');
-  const url = `https://78wde2tk.api.sanity.io/v1/data/query/production?query=${query}`;
-  const result = await fetch(url).then((res) => res.json());
+// export const getServerSideProps = async (pageContext) => {
+//   const query = encodeURIComponent('*[ _type == "post" ]');
+//   const url = `https://78wde2tk.api.sanity.io/v1/data/query/production?query=${query}`;
+//   const result = await fetch(url).then((res) => res.json());
 
-  if (!result.result || !result.result.length) {
-    return {
-      props: {
-        posts: [],
-      },
-    };
-  } else {
-    return {
-      props: {
-        posts: result.result,
-      },
-    };
-  }
-};
+//   if (!result.result || !result.result.length) {
+//     return {
+//       props: {
+//         posts: [],
+//       },
+//     };
+//   } else {
+//     return {
+//       props: {
+//         posts: result.result,
+//       },
+//     };
+//   }
+// };
