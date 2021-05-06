@@ -13,7 +13,7 @@
 }
 
 .appScrolled {
-  background-color: #f4f6f6;
+  background-color: #eef0f1;
   color: #2f3640;
   height: 100%;
   overflow-y: scroll;
@@ -24,38 +24,45 @@
 
 .main h1 {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 10px;
 }
-.main h3 {
-  text-align: center;
+.recentHeader {
+  text-align: start;
   margin-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(196, 195, 195, 0.289);
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.recentHeader span {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #2f3640;
 }
 .feed {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .post {
   margin: 25px;
-  width: 600px;
+  width: 30%;
+  min-width: 350px;
   height: 400px;
   cursor: pointer;
   text-align: center;
   max-width: calc(100vw - 50px);
   background-color: white;
   border-radius: 5px;
-  box-shadow: 1px 0px 3px rgb(170, 170, 170);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .mainImage {
-  width: 500px;
+  width: 100%;
   transition: 0.2s;
   border-radius: 5px;
   max-width: calc(100vw - 50px);
-  box-shadow: 0px 0px 2px black;
-}
-.post:hover .mainImage {
-  width: 490px;
-  transition: 0.2s;
 }
 
 .buttons {
@@ -71,7 +78,7 @@
   padding: 20%;
   border-radius: 100%;
   background-color: #2f3640;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
   color: white !important;
   transition: ease-in-out 400ms;
 }
@@ -79,4 +86,51 @@
 .buttons div:hover {
   color: #2f3640 !important;
   background-color: white;
+}
+
+.sectionHeaderContainer {
+  color: rgb(255, 255, 255) !important;
+  background-image: url(/images/space.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 70px;
+  height: 430px;
+  display: grid;
+  place-items: center;
+}
+
+.logoImage {
+  width: 50%;
+}
+
+.fadeBottom {
+  margin-top: -40px;
+  height: 40px;
+  background-image: linear-gradient(
+    180deg,
+    transparent,
+    rgba(37, 37, 37, 0.823)
+  );
+}
+
+.footer {
+  width: 100%;
+  background-color: white;
+  height: 100px;
+  color: #7b7b7b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 10px;
+  margin-top: 30px;
+}
+
+.footer p {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.44);
+  font-weight: 550;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  text-align: center;
 }

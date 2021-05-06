@@ -9,11 +9,14 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import groq from 'groq';
 
 export default function Home({ posts }) {
   const router = useRouter();
   const [mappedPosts, setMappedPosts] = useState([]);
   const [content, setContent] = useState(false);
+
+  console.log(posts);
 
   useEffect(() => {
     if (posts.length) {
@@ -35,6 +38,8 @@ export default function Home({ posts }) {
     }
   }, [posts]);
 
+  console.table(mappedPosts);
+
   const changeBackground = () => {
     if (window.scrollY >= 100) {
       setContent(true);
@@ -52,9 +57,14 @@ export default function Home({ posts }) {
     <div className={content ? styles.appScrolled : styles.app}>
       <Toolbar content={content} />
       <div className={styles.main}>
-        <h1>Welcome To The Devs Universe</h1>
-        <h1>This Blog is coded with passion & love for web devloping</h1>
-        <h3>Recent Posts:</h3>
+        <div className={styles.sectionHeaderContainer}>
+          {' '}
+          <img className={styles.logoImage} src="/images/WhiteLogo.svg" />
+        </div>
+        <div className={styles.fadeBottom} />
+        <h3 className={styles.recentHeader}>
+          <span>Recent Posts:</span>
+        </h3>
         <div className={styles.buttons}>
           {' '}
           <div onClick={() => (window.location.href = 'https://twitter.com/')}>
@@ -79,8 +89,11 @@ export default function Home({ posts }) {
                 onClick={() => router.push(`/post/${p.slug.current}`)}
                 key={index}
                 className={styles.post}>
-                <h3>{p.title}</h3>
                 <img className={styles.mainImage} src={p.mainImage} />
+                <h3>{p.title}</h3>
+                <p>
+                  By {p.authorName} {new Date(p._createdAt).toDateString()}
+                </p>
               </div>
             ))
           ) : (
@@ -88,6 +101,11 @@ export default function Home({ posts }) {
           )}
         </div>
       </div>
+      <footer className={styles.footer}>
+        <p>Copyright 2021 &#169; TheDevsUniverse</p>
+        <p>Do you need a support? Email hernackikacper@gmail.com</p>
+        <p>Star vector created by vectorpouch - www.freepik.com</p>
+      </footer>
     </div>
   );
 }
