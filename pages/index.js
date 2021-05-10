@@ -11,14 +11,16 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import groq from 'groq';
 import client from '../client';
+import BlockContent from '@sanity/block-content-to-react';
 
 export async function getStaticProps() {
   const query = groq`
   {
-    "posts": *[_type == "post"]{title, mainImage, publishedAt,
+    "posts": *[_type == "post"]|order(publishedAt desc){title, mainImage, publishedAt,slug,
     'categories': categories[]->title,
     'authorName': author->name,
     'authorSlug': author->slug,
+    
   }
   }`;
   const data = await client.fetch(query);
@@ -100,15 +102,20 @@ export default function Home({ posts }) {
         </div>
         <div className={styles.feed}>
           {mappedPosts.length ? (
-            mappedPosts.map((p, index) => (
+            mappedPosts.map((p) => (
               <div
                 onClick={() => router.push(`/post/${p.slug.current}`)}
-                key={index}
+                key={p.slug.current}
                 className={styles.post}>
-                <img className={styles.mainImage} src={p.mainImage} />
+                {p.mainImage && (
+                  <img className={styles.mainImage} src={p.mainImage} />
+                )}
+
                 <h3>{p.title}</h3>
 
-                {p.categories && <p>#{p.categories[0]}</p>}
+                {p.categories?.map((category) => (
+                  <p key={category}># {category}</p>
+                ))}
                 <p>
                   By {p.authorName} on {new Date(p.publishedAt).toDateString()}
                 </p>
@@ -127,23 +134,3 @@ export default function Home({ posts }) {
     </div>
   );
 }
-
-// export const getServerSideProps = async (pageContext) => {
-//   const query = encodeURIComponent('*[ _type == "post" ]');
-//   const url = `https://78wde2tk.api.sanity.io/v1/data/query/production?query=${query}`;
-//   const result = await fetch(url).then((res) => res.json());
-
-//   if (!result.result || !result.result.length) {
-//     return {
-//       props: {
-//         posts: [],
-//       },
-//     };
-//   } else {
-//     return {
-//       props: {
-//         posts: result.result,
-//       },
-//     };
-//   }
-// };
