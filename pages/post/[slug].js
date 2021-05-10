@@ -8,6 +8,7 @@ import client from '../../client';
 import { useRouter } from 'next/router';
 import DefaultErrorPage from 'next/error';
 import Head from 'next/head';
+import Avatar from '@material-ui/core/Avatar';
 
 export function getStaticPaths() {
   return {
@@ -21,6 +22,9 @@ export async function getStaticProps({ params }) {
   const query = groq`*[_type == 'post' && slug.current == '${slug}'][0]{
     ...,
     'author': author->name,
+    'authorAvatar': author->avatarImage,
+    'authorImage': author->image,
+    'authorBio': author->bio,
     'categories': categories[]->title,
   }
  `;
@@ -38,6 +42,8 @@ export async function getStaticProps({ params }) {
 export const Post = ({ post }) => {
   const router = useRouter();
   const [imageUrl, setImageUrl] = useState('');
+  const [authorImageUrl, setAuthorImageUrl] = useState('');
+  const [authorAvatarUrl, setAuthorAvatarUrl] = useState('');
 
   useEffect(() => {
     if (post) {
@@ -46,6 +52,12 @@ export const Post = ({ post }) => {
         dataset: 'production',
       });
       setImageUrl(imgBuilder.image(post.mainImage).width(500).height(250));
+      setAuthorImageUrl(
+        imgBuilder.image(post.authorImage).width(150).height(250)
+      );
+      setAuthorAvatarUrl(
+        imgBuilder.image(post.authorAvatar).width(50).height(50)
+      );
     }
   }, [post]);
 
@@ -94,10 +106,16 @@ export const Post = ({ post }) => {
         <p>
           By {post.author} on {new Date(post.publishedAt).toDateString()}
         </p>
+        <Avatar src={authorAvatarUrl} />
         <img src={imageUrl} />
         <div className={styles.body}>
           <BlockContent blocks={post.body} />
         </div>
+      </div>
+      <div>
+        {' '}
+        <img src={authorImageUrl} />
+        <BlockContent blocks={post.authorBio} />
       </div>
     </div>
   );

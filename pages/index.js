@@ -11,16 +11,17 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import groq from 'groq';
 import client from '../client';
-import BlockContent from '@sanity/block-content-to-react';
+import Avatar from '@material-ui/core/Avatar';
 
 export async function getStaticProps() {
   const query = groq`
   {
-    "posts": *[_type == "post"]|order(publishedAt desc){title, mainImage, publishedAt,slug,
+    "posts": *[_type == "post"]|order(publishedAt desc){title, mainImage, publishedAt,slug,fragment,
     'categories': categories[]->title,
     'authorName': author->name,
     'authorSlug': author->slug,
-    
+    'authorAvatar': author->avatarImage,
+    'words': body[]{children[]{text}},
   }
   }`;
   const data = await client.fetch(query);
@@ -50,6 +51,7 @@ export default function Home({ posts }) {
           return {
             ...p,
             mainImage: imgBuilder.image(p.mainImage).width(500).height(250),
+            authorAvatar: imgBuilder.image(p.authorAvatar).width(50).height(50),
           };
         })
       );
@@ -70,6 +72,7 @@ export default function Home({ posts }) {
     // browser code
     window.addEventListener('scroll', changeBackground);
   }
+  if (mappedPosts) mappedPosts.map((p) => console.log(p.words));
 
   return (
     <div className={content ? styles.appScrolled : styles.app}>
@@ -116,9 +119,11 @@ export default function Home({ posts }) {
                 {p.categories?.map((category) => (
                   <p key={category}># {category}</p>
                 ))}
+                <Avatar src={p.authorAvatar} />
                 <p>
                   By {p.authorName} on {new Date(p.publishedAt).toDateString()}
                 </p>
+                <p>{p.fragment}</p>
               </div>
             ))
           ) : (
