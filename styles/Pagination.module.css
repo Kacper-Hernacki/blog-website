@@ -1,0 +1,31 @@
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin-top: 30px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: white;
+  margin-top: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.pagination__number {
+  padding: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  /* color: #292929; */
+  color: #888;
+  cursor: pointer;
+}
+
+.pagination__numberActive {
+  padding: 10px;
+  /* color: #292929; */
+  background-color: #2f3640;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  padding-top: 3px;
+  padding-bottom: 0;
+}

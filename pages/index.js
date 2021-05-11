@@ -2,6 +2,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { Toolbar } from '../components/toolbar';
+import { Newsletter } from '../components/newsletter';
+import { Pagination } from '../components/pagination';
 import imageUrlBuilder from '@sanity/image-url';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -21,7 +23,7 @@ export async function getStaticProps() {
     'authorName': author->name,
     'authorSlug': author->slug,
     'authorAvatar': author->avatarImage,
-    'words': body[]{children[]{text}},
+    'counter': counter,
   }
   }`;
   const data = await client.fetch(query);
@@ -38,7 +40,8 @@ export default function Home({ posts }) {
   const [mappedPosts, setMappedPosts] = useState([]);
   const [content, setContent] = useState(false);
 
-  console.table(posts);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(4);
 
   useEffect(() => {
     if (posts.length) {
@@ -72,7 +75,16 @@ export default function Home({ posts }) {
     // browser code
     window.addEventListener('scroll', changeBackground);
   }
-  if (mappedPosts) mappedPosts.map((p) => console.log(p.words));
+
+  //Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = mappedPosts.slice(indexOfFirstPost, indexOfLastPost);
+
+  // change page
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className={content ? styles.appScrolled : styles.app}>
@@ -104,8 +116,8 @@ export default function Home({ posts }) {
           </div>
         </div>
         <div className={styles.feed}>
-          {mappedPosts.length ? (
-            mappedPosts.map((p) => (
+          {currentPosts.length ? (
+            currentPosts.map((p) => (
               <div
                 onClick={() => router.push(`/post/${p.slug.current}`)}
                 key={p.slug.current}
@@ -115,15 +127,31 @@ export default function Home({ posts }) {
                 )}
 
                 <h3>{p.title}</h3>
+                <p className={styles.fragment}>{p.fragment}</p>
 
-                {p.categories?.map((category) => (
-                  <p key={category}># {category}</p>
-                ))}
-                <Avatar src={p.authorAvatar} />
-                <p>
-                  By {p.authorName} on {new Date(p.publishedAt).toDateString()}
-                </p>
-                <p>{p.fragment}</p>
+                <div className={styles.categories}>
+                  {' '}
+                  {p.categories?.map((category) => (
+                    <p className={styles.category} key={category}>
+                      # {category}
+                    </p>
+                  ))}
+                </div>
+
+                <div className={styles.bioFooter}>
+                  <div className={styles.authorAvatar}>
+                    {' '}
+                    <Avatar src={p.authorAvatar} />
+                  </div>
+
+                  <div className={styles.bioFooter__right}>
+                    <p>{p.authorName}</p>{' '}
+                    <div className={styles.bioFooter__rightDate}>
+                      <p>{new Date(p.publishedAt).toDateString()}</p>
+                      <h3>{p.counter} min read</h3>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))
           ) : (
@@ -131,6 +159,13 @@ export default function Home({ posts }) {
           )}
         </div>
       </div>
+      <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={mappedPosts.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
+      <Newsletter />
       <footer className={styles.footer}>
         <p>Copyright 2021 &#169; TheDevsUniverse</p>
         <p>Do you need a support? Email hernackikacper@gmail.com</p>

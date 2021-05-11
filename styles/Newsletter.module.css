@@ -1,0 +1,23 @@
+.newsletter {
+  height: 200px;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background-color: white;
+  padding-bottom: 30px;
+}
+
+.newsletter__inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  font-weight: 600 !important;
+  height: 40px;
+  margin-top: 15px !important;
+  color: #2f3640 !important;
+}

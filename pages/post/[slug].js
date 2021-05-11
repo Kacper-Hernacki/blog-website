@@ -26,6 +26,7 @@ export async function getStaticProps({ params }) {
     'authorImage': author->image,
     'authorBio': author->bio,
     'categories': categories[]->title,
+    'counter': counter,
   }
  `;
 
@@ -103,6 +104,7 @@ export const Post = ({ post }) => {
       <div className={styles.main}>
         <h1>{post.title}</h1>
         <p>#{post.categories[0]}</p>
+        <p>Read time {post.counter} min</p>
         <p>
           By {post.author} on {new Date(post.publishedAt).toDateString()}
         </p>
