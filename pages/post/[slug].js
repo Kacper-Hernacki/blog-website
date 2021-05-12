@@ -54,7 +54,7 @@ export const Post = ({ post }) => {
       });
       setImageUrl(imgBuilder.image(post.mainImage).width(500).height(250));
       setAuthorImageUrl(
-        imgBuilder.image(post.authorImage).width(150).height(250)
+        imgBuilder.image(post.authorImage).width(100).height(100)
       );
       setAuthorAvatarUrl(
         imgBuilder.image(post.authorAvatar).width(50).height(50)
@@ -98,26 +98,49 @@ export const Post = ({ post }) => {
   }
 
   return (
-    <div>
+    <div className={styles.postContainer}>
       <Toolbar />
       <div id="myBar" className={styles.progress}></div>
       <div className={styles.main}>
         <h1>{post.title}</h1>
-        <p>#{post.categories[0]}</p>
-        <p>Read time {post.counter} min</p>
-        <p>
-          By {post.author} on {new Date(post.publishedAt).toDateString()}
-        </p>
-        <Avatar src={authorAvatarUrl} />
+        <div className={styles.bioFooter}>
+          <div className={styles.authorAvatar}>
+            {' '}
+            <Avatar src={authorAvatarUrl} />
+          </div>
+
+          <div className={styles.bioFooter__right}>
+            <p>{post.author}</p>{' '}
+            <div className={styles.bioFooter__rightDate}>
+              <p>{new Date(post.publishedAt).toDateString()}</p>
+              <h3>{post.counter} min read</h3>
+            </div>
+          </div>
+        </div>{' '}
+        <div className={styles.categories}>
+          {post.categories?.map((category) => (
+            <p className={styles.category} key={category}>
+              # {category}
+            </p>
+          ))}
+        </div>
         <img src={imageUrl} />
         <div className={styles.body}>
           <BlockContent blocks={post.body} />
         </div>
+        <div className={styles.share}>
+          <h5>Share this:</h5>
+        </div>
       </div>
-      <div>
-        {' '}
-        <img src={authorImageUrl} />
-        <BlockContent blocks={post.authorBio} />
+
+      <div className={styles.author}>
+        <div className={styles.authorContainer}>
+          <Avatar className={styles.avatarAuthor} src={authorImageUrl} />
+          <div className={styles.author__body}>
+            <h5>{post.author}</h5>
+            <BlockContent blocks={post.authorBio} />
+          </div>
+        </div>
       </div>
     </div>
   );

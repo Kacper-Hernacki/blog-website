@@ -15,9 +15,23 @@
   align-items: center;
 }
 
+.newsletter__inputs > input {
+  width: 200px;
+  padding: 7px;
+  border: 1px solid rgba(136, 136, 136, 0.371);
+}
+
 .button {
   font-weight: 600 !important;
   height: 40px;
   margin-top: 15px !important;
   color: #2f3640 !important;
+}
+
+.error {
+  color: rgb(220, 52, 52);
+}
+
+.success {
+  color: rgb(55, 111, 55);
 }

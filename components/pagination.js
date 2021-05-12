@@ -19,10 +19,19 @@ export const Pagination = ({
 
   return (
     <div className={styles.pagination}>
-      <div className={styles.pagination__number}>First</div>
-      <div className={styles.pagination__number}>
-        <NavigateBeforeIcon />
-      </div>
+      {currentPage != 1 && (
+        <div className={styles.pagination__number} onClick={() => paginate(1)}>
+          First
+        </div>
+      )}
+      {currentPage != 1 && (
+        <div
+          className={styles.pagination__number}
+          onClick={() => paginate(currentPage - 1)}>
+          <NavigateBeforeIcon />
+        </div>
+      )}
+
       {pageNumbers.map((number) => (
         <div
           className={
@@ -35,10 +44,19 @@ export const Pagination = ({
           {number}
         </div>
       ))}
-      <div className={styles.pagination__number}>
-        <NavigateNextIcon />
-      </div>
-      <div className={styles.pagination__number}>Last</div>
+
+      {currentPage != pageNumbers.length && (
+        <div
+          className={styles.pagination__number}
+          onClick={() => paginate(currentPage + 1)}>
+          <NavigateNextIcon />
+        </div>
+      )}
+      {currentPage != pageNumbers.length && (
+        <div className={styles.pagination__number} onClick={() => paginate(2)}>
+          Last
+        </div>
+      )}
     </div>
   );
 };

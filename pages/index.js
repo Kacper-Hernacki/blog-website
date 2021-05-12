@@ -14,6 +14,7 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import groq from 'groq';
 import client from '../client';
 import Avatar from '@material-ui/core/Avatar';
+import CookieConsent from 'react-cookie-consent';
 
 export async function getStaticProps() {
   const query = groq`
@@ -171,6 +172,24 @@ export default function Home({ posts }) {
         <p>Do you need a support? Email hernackikacper@gmail.com</p>
         <p>Star vector created by vectorpouch - www.freepik.com</p>
       </footer>
+      <CookieConsent
+        debug={true}
+        location="bottom"
+        buttonText="I accept"
+        cookieName="myAwesomeCookieName2"
+        style={{ background: '#2B373B' }}
+        buttonStyle={{
+          backgroundColor: 'white',
+          color: '#000',
+          fontSize: '13px',
+          fontWeight: '700',
+        }}
+        expires={150}>
+        This website uses cookies to enhance the user experience.{' '}
+        <span style={{ fontSize: '13px' }}>
+          Click the button to accept our privace policy
+        </span>
+      </CookieConsent>
     </div>
   );
 }

@@ -40,8 +40,8 @@ export const Newsletter = () => {
           Subscribe
         </Button>
       </div>
-      {state === 'ERROR' && <p>{errorMessage}</p>}
-      {state === 'SUCCESS' && <p>SUCCESS!</p>}
+      {state === 'ERROR' && <p className={styles.error}>{errorMessage}</p>}
+      {state === 'SUCCESS' && <p className={styles.success}>SUCCESS!</p>}
     </div>
   );
 };

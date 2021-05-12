@@ -3,6 +3,7 @@
   width: 750px;
   max-width: calc(100vw - 50px);
   margin-top: 120px;
+  background-color: white;
 }
 
 .mainImage {
@@ -12,21 +13,145 @@
 }
 
 .body p {
-  font-size: 24px;
   text-indent: 50px;
   line-height: 45px;
   text-align: justify;
-  letter-spacing: 1.5px;
+
+  font-weight: 500;
+  line-height: 1.8;
+  color: #222222;
+  font-size: 1.125rem;
 }
 
 .progress {
   margin-top: 0px;
   padding: 0px;
-  background: #9dc8eb none repeat scroll 0% 0%;
+  background: linear-gradient(
+    90deg,
+    rgba(13, 114, 187, 1) 66%,
+    rgba(0, 212, 255, 1) 100%
+  );
   position: fixed;
   height: 5px;
   top: 70px;
   z-index: 99;
   transition: width 200ms ease-out 0s;
   width: 1%;
+}
+
+.categories {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 10px;
+}
+
+.category {
+  background-color: #e0e0e0;
+  color: #2f3640;
+  font-weight: 600;
+  padding: 5px;
+  width: 80px;
+  border-radius: 5px;
+  transition: ease-in-out 400ms;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.category:hover {
+  color: #2f3640 !important;
+  background-color: white;
+}
+
+.bioFooter {
+  display: flex;
+  padding: 20px;
+  text-align: justify;
+  width: 300px;
+  padding-left: 0;
+}
+
+.authorAvatar {
+  flex: 0.3;
+  display: grid;
+  place-items: center;
+}
+
+.bioFooter__right {
+  flex: 0.7;
+}
+
+.bioFooter__right > p {
+  margin-top: 0;
+  margin-bottom: 3px;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.bioFooter__rightDate {
+  display: flex;
+}
+
+.bioFooter__rightDate > p {
+  margin-top: 0;
+  margin-bottom: 3px;
+  color: #888;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.bioFooter__rightDate > h3 {
+  margin-top: 0;
+  margin-bottom: 3px;
+  color: #888;
+  font-size: 13px;
+  margin-left: 10px;
+  font-weight: 500;
+}
+
+.author {
+  margin: auto;
+  width: 750px;
+  max-width: calc(100vw - 50px);
+  margin-top: 40px;
+  padding: 30px;
+  padding-top: 10px;
+  background-color: rgba(136, 136, 136, 0.076);
+}
+
+.author h2 {
+  margin-bottom: 40px;
+}
+
+.authorContainer {
+  display: flex;
+  align-items: center;
+}
+
+.avatarAuthor {
+  width: 100px !important;
+  height: 100px !important;
+  margin-right: 30px;
+}
+
+.author__body p {
+  text-align: justify;
+
+  font-weight: 600;
+  line-height: 1.8;
+  color: rgb(88, 88, 88);
+  font-size: 0.825rem;
+}
+
+.author__body h5 {
+  color: #2f3640;
+  font-size: 0.95rem;
+}
+
+.share h5 {
+  padding-top: 10px;
+  border-top: 1px solid rgba(136, 136, 136, 0.364);
+  width: 70px;
 }

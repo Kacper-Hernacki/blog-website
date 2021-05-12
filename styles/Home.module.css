@@ -39,6 +39,10 @@
   padding-bottom: 20px;
   border-bottom: 2px solid #2f3640;
 }
+
+.app .recentHeader span {
+  border-bottom: 2px solid white;
+}
 .feed {
   display: flex;
   align-items: center;
@@ -47,6 +51,11 @@
   flex-wrap: wrap;
   padding-right: 100px;
   padding-left: 100px;
+}
+
+.app .post {
+  background-color: #242930;
+  border: none;
 }
 .post {
   margin: 25px;
@@ -59,6 +68,7 @@
   background-color: white;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: ease-in-out 400ms;
 }
 .mainImage {
   width: 100%;
