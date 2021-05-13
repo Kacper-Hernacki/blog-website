@@ -20,7 +20,7 @@
   font-weight: 500;
   line-height: 1.8;
   color: #222222;
-  font-size: 1.125rem;
+  font-size: 1.225rem;
 }
 
 .progress {
@@ -154,4 +154,19 @@
   padding-top: 10px;
   border-top: 1px solid rgba(136, 136, 136, 0.364);
   width: 70px;
+  color: #2f3640;
+}
+
+.shareButton {
+  font-weight: 600 !important;
+  margin-right: 10px !important;
+  height: 25px;
+  margin-top: 0 !important;
+  color: #2f3640 !important;
+  font-size: 10px !important;
+  padding: 4px !important;
+}
+
+.shareButton span {
+  margin-left: 6px;
 }

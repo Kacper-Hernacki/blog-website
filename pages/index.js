@@ -180,9 +180,10 @@ export default function Home({ posts }) {
         style={{ background: '#2B373B' }}
         buttonStyle={{
           backgroundColor: 'white',
-          color: '#000',
+          color: '#2f3640',
           fontSize: '13px',
           fontWeight: '700',
+          borderRadius: '5px',
         }}
         expires={150}>
         This website uses cookies to enhance the user experience.{' '}

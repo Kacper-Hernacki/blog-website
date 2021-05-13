@@ -9,6 +9,12 @@ import { useRouter } from 'next/router';
 import DefaultErrorPage from 'next/error';
 import Head from 'next/head';
 import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import { CommentsForm } from '../../components/commentsForm';
 
 export function getStaticPaths() {
   return {
@@ -130,6 +136,23 @@ export const Post = ({ post }) => {
         </div>
         <div className={styles.share}>
           <h5>Share this:</h5>
+          <div className={styles.shareContainer}>
+            <Button className={styles.shareButton} variant="contained">
+              <FacebookIcon />
+              <span> Facebook</span>
+            </Button>
+            <Button className={styles.shareButton} variant="contained">
+              <InstagramIcon /> <span> Instagram</span>
+            </Button>
+            <Button className={styles.shareButton} variant="contained">
+              {' '}
+              <LinkedInIcon /> <span> LinkedIN</span>
+            </Button>
+            <Button className={styles.shareButton} variant="contained">
+              {' '}
+              <TwitterIcon /> <span> Twitter</span>
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -142,6 +165,7 @@ export const Post = ({ post }) => {
           </div>
         </div>
       </div>
+      <CommentsForm _id={post._id} />
     </div>
   );
 };
