@@ -15,6 +15,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { CommentsForm } from '../../components/commentsForm';
+import { Footer } from '../../components/Footer';
 
 export function getStaticPaths() {
   return {
@@ -166,6 +167,7 @@ export const Post = ({ post }) => {
         </div>
       </div>
       <CommentsForm _id={post._id} />
+      <Footer />
     </div>
   );
 };
