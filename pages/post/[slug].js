@@ -10,13 +10,29 @@ import DefaultErrorPage from 'next/error';
 import Head from 'next/head';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
+// import TwitterIcon from '@material-ui/icons/Twitter';
+// import FacebookIcon from '@material-ui/icons/Facebook';
+// import InstagramIcon from '@material-ui/icons/Instagram';
+// import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import CommentsForm from '../../components/commentsForm';
 import { Footer } from '../../components/Footer';
 import { Comments } from '../../components/comments';
+import urlBuilder from '@sanity/image-url';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { ocean } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+  InstapaperShareButton,
+} from 'react-share';
+import {
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  InstapaperIcon,
+} from 'react-share';
 
 export function getStaticPaths() {
   return {
@@ -67,7 +83,7 @@ export const Post = ({ post }) => {
         projectId: '78wde2tk',
         dataset: 'production',
       });
-      setImageUrl(imgBuilder.image(post.mainImage).width(500).height(250));
+      setImageUrl(imgBuilder.image(post.mainImage).width(1000).height(500));
       setAuthorImageUrl(
         imgBuilder.image(post.authorImage).width(100).height(100)
       );
@@ -77,12 +93,27 @@ export const Post = ({ post }) => {
     }
   }, [post]);
 
+  const urlFor = (source) =>
+    urlBuilder({ projectId: '78wde2tk', dataset: 'production' }).image(source);
+
   const serializers = {
     types: {
       code: (props) => (
-        <pre data-language={props.node.language}>
-          <code>{props.node.code}</code>
-        </pre>
+        // <pre data-language={props.node.language}>
+        //   <code>{props.node.code}</code>
+        // </pre>
+        <SyntaxHighlighter language={props.node.language} style={ocean}>
+          {props.node.code}
+        </SyntaxHighlighter>
+      ),
+      image: (props) => (
+        <figure>
+          <img
+            className={styles.blockImage}
+            src={urlFor(props.node.asset).width(500).url()}
+            alt=""
+          />
+        </figure>
       ),
     },
   };
@@ -108,7 +139,7 @@ export const Post = ({ post }) => {
   }
 
   if (router.isFallback) {
-    return <h1>Loading...</h1>;
+    return <div className={styles.loader}></div>;
   }
 
   if (!post) {
@@ -149,33 +180,36 @@ export const Post = ({ post }) => {
             </p>
           ))}
         </div>
-        <img src={imageUrl} />
+        <img src={imageUrl} className={styles.frontImage} />
         <div className={styles.body}>
           <BlockContent
             imageOptions={{ fit: 'max' }}
+            projectId="78wde2tk"
+            dataset="production"
             serializers={serializers}
             blocks={post.body}
           />
         </div>
         <div className={styles.share}>
           <h5>Share this:</h5>
-          <div className={styles.shareContainer}>
-            <Button className={styles.shareButton} variant="contained">
-              <FacebookIcon />
-              <span> Facebook</span>
-            </Button>
-            <Button className={styles.shareButton} variant="contained">
-              <InstagramIcon /> <span> Instagram</span>
-            </Button>
-            <Button className={styles.shareButton} variant="contained">
-              {' '}
-              <LinkedInIcon /> <span> LinkedIN</span>
-            </Button>
-            <Button className={styles.shareButton} variant="contained">
-              {' '}
-              <TwitterIcon /> <span> Twitter</span>
-            </Button>
-          </div>
+          <FacebookShareButton url="" quote={'Hey, see my latest post!'}>
+            <FacebookIcon
+              size={40}
+              round={true}
+              logoFillColor="white"></FacebookIcon>
+          </FacebookShareButton>
+          <TwitterShareButton url="" quote={'Hey, see my latest post!'}>
+            <TwitterIcon
+              size={40}
+              round={true}
+              logoFillColor="white"></TwitterIcon>
+          </TwitterShareButton>
+          <LinkedinShareButton url="" quote={'Hey, see my latest post!'}>
+            <LinkedinIcon
+              size={40}
+              round={true}
+              logoFillColor="white"></LinkedinIcon>
+          </LinkedinShareButton>
         </div>
       </div>
 
