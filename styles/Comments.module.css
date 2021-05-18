@@ -1,0 +1,40 @@
+.comments {
+  margin: auto;
+  width: 750px;
+  max-width: calc(100vw - 50px);
+  margin-top: 40px;
+  padding: 30px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 10px;
+}
+
+.comments h5 {
+  padding-top: 10px;
+  border-top: 1px solid rgba(136, 136, 136, 0.364);
+  width: 70px;
+  color: #2f3640;
+}
+
+.comment {
+  background: white !important;
+  font-size: 14px;
+  font-family: inherit;
+  color: #4b4b4b;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(136, 136, 136, 0.419);
+}
+
+.comment > h4 > span {
+  color: rgba(13, 114, 187, 1);
+}
+
+.date {
+  margin-top: 0;
+  margin-bottom: 3px;
+  color: #888;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: -10px;
+}

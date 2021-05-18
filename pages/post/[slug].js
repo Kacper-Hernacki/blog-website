@@ -14,8 +14,9 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import { CommentsForm } from '../../components/commentsForm';
+import CommentsForm from '../../components/commentsForm';
 import { Footer } from '../../components/Footer';
+import { Comments } from '../../components/comments';
 
 export function getStaticPaths() {
   return {
@@ -26,7 +27,8 @@ export function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { slug } = params;
-  const query = groq`*[_type == 'post' && slug.current == '${slug}'][0]{
+  const query = groq`
+  *[_type == 'post' && slug.current == '${slug}'][0]{
     ...,
     'author': author->name,
     'authorAvatar': author->avatarImage,
@@ -34,6 +36,12 @@ export async function getStaticProps({ params }) {
     'authorBio': author->bio,
     'categories': categories[]->title,
     'counter': counter,
+    'comments':*[_type == "comment" && post._ref == ^._id ]|order(publishedAt desc){    
+      _id, 
+      name, 
+      email, 
+      comment, 
+      _createdAt}
   }
  `;
 
@@ -68,6 +76,16 @@ export const Post = ({ post }) => {
       );
     }
   }, [post]);
+
+  const serializers = {
+    types: {
+      code: (props) => (
+        <pre data-language={props.node.language}>
+          <code>{props.node.code}</code>
+        </pre>
+      ),
+    },
+  };
 
   if (typeof window !== 'undefined') {
     //scroll-progress
@@ -133,7 +151,11 @@ export const Post = ({ post }) => {
         </div>
         <img src={imageUrl} />
         <div className={styles.body}>
-          <BlockContent blocks={post.body} />
+          <BlockContent
+            imageOptions={{ fit: 'max' }}
+            serializers={serializers}
+            blocks={post.body}
+          />
         </div>
         <div className={styles.share}>
           <h5>Share this:</h5>
@@ -166,6 +188,7 @@ export const Post = ({ post }) => {
           </div>
         </div>
       </div>
+      <Comments comments={post?.comments} />
       <CommentsForm _id={post._id} />
       <Footer />
     </div>
