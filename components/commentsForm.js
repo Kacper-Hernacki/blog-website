@@ -74,6 +74,7 @@ export default function CommentsForm({ _id }) {
       className={styles.commentsForm}
       onSubmit={handleSubmit(onSubmit)}
       disabled>
+      <h5>Share a comment</h5>
       <input {...register('_id')} type="hidden" name="_id" value={_id} />
       {/* register your input into the hook by invoking the "register" function */}
       <input

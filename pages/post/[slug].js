@@ -10,10 +10,7 @@ import DefaultErrorPage from 'next/error';
 import Head from 'next/head';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-// import TwitterIcon from '@material-ui/icons/Twitter';
-// import FacebookIcon from '@material-ui/icons/Facebook';
-// import InstagramIcon from '@material-ui/icons/Instagram';
-// import LinkedInIcon from '@material-ui/icons/LinkedIn';
+
 import CommentsForm from '../../components/commentsForm';
 import { Footer } from '../../components/Footer';
 import { Comments } from '../../components/comments';
@@ -80,7 +77,7 @@ export const Post = ({ post }) => {
   useEffect(() => {
     if (post) {
       const imgBuilder = imageUrlBuilder({
-        projectId: '78wde2tk',
+        projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
         dataset: 'production',
       });
       setImageUrl(imgBuilder.image(post.mainImage).width(1000).height(500));
@@ -94,7 +91,10 @@ export const Post = ({ post }) => {
   }, [post]);
 
   const urlFor = (source) =>
-    urlBuilder({ projectId: '78wde2tk', dataset: 'production' }).image(source);
+    urlBuilder({
+      projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+      dataset: 'production',
+    }).image(source);
 
   const serializers = {
     types: {
@@ -102,7 +102,10 @@ export const Post = ({ post }) => {
         // <pre data-language={props.node.language}>
         //   <code>{props.node.code}</code>
         // </pre>
-        <SyntaxHighlighter language={props.node.language} style={ocean}>
+        <SyntaxHighlighter
+          className={styles.codeBlock}
+          language={props.node.language}
+          style={ocean}>
           {props.node.code}
         </SyntaxHighlighter>
       ),
@@ -139,7 +142,17 @@ export const Post = ({ post }) => {
   }
 
   if (router.isFallback) {
-    return <div className={styles.loader}></div>;
+    return (
+      <div
+        style={{
+          backgroundColor: '#2f3640',
+          height: '100vh',
+          display: 'grid',
+          placeItems: 'center',
+        }}>
+        <div className={styles.loader}></div>
+      </div>
+    );
   }
 
   if (!post) {
@@ -155,6 +168,10 @@ export const Post = ({ post }) => {
 
   return (
     <div className={styles.postContainer}>
+      <Head>
+        {' '}
+        <title>{post.title}</title>
+      </Head>
       <Toolbar />
       <div id="myBar" className={styles.progress}></div>
       <div className={styles.main}>
@@ -184,7 +201,7 @@ export const Post = ({ post }) => {
         <div className={styles.body}>
           <BlockContent
             imageOptions={{ fit: 'max' }}
-            projectId="78wde2tk"
+            projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
             dataset="production"
             serializers={serializers}
             blocks={post.body}

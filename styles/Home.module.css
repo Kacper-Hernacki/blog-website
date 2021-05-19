@@ -12,6 +12,16 @@
   transition: ease-in-out 1000ms;
 }
 
+.app .buttons div {
+  background-color: #ffffff !important;
+  color: #2f3640 !important;
+}
+
+.app .buttons div:hover {
+  color: #ffffff !important;
+  background-color: #2f3640 !important;
+}
+
 .appScrolled {
   background-color: #eef0f1;
   color: #2f3640;
@@ -180,7 +190,7 @@
 
 .sectionHeaderContainer {
   color: rgb(255, 255, 255) !important;
-  background-image: url(/images/space.png);
+  background-image: url(/images/space.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -193,6 +203,10 @@
 @media only screen and (max-width: 600px) {
   .sectionHeaderContainer {
     height: 230px;
+  }
+
+  .post {
+    min-width: 300px;
   }
 
   .buttons {
@@ -224,6 +238,8 @@
   justify-content: center;
   padding-top: 10px;
   margin-top: 0;
+  padding: 10px;
+  padding-bottom: 20px;
 }
 
 .footer p {
