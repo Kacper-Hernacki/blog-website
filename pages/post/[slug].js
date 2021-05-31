@@ -16,7 +16,7 @@ import { Footer } from '../../components/Footer';
 import { Comments } from '../../components/comments';
 import urlBuilder from '@sanity/image-url';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { ocean } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import { stackoverflowDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 import {
   FacebookShareButton,
@@ -30,6 +30,7 @@ import {
   LinkedinIcon,
   InstapaperIcon,
 } from 'react-share';
+import { dark } from '@material-ui/core/styles/createPalette';
 
 export function getStaticPaths() {
   return {
@@ -105,7 +106,7 @@ export const Post = ({ post }) => {
         <SyntaxHighlighter
           className={styles.codeBlock}
           language={props.node.language}
-          style={ocean}>
+          style={stackoverflowDark}>
           {props.node.code}
         </SyntaxHighlighter>
       ),

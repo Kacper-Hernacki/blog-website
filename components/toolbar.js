@@ -34,7 +34,7 @@ export const Toolbar = ({ content }) => {
         onClick={() => router.push('/')}
         className={styles.aboutButton}
         variant="contained">
-        Offer
+        About
       </Button>
     </div>
   );

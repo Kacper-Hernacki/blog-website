@@ -6,10 +6,14 @@
   background-color: #2f3640;
   color: white;
   height: 100%;
-  overflow-y: scroll;
+  /* overflow-y: scroll !important; */
   -ms-overflow-style: none;
   scrollbar-width: none;
   transition: ease-in-out 1000ms;
+}
+
+.app .fragment {
+  color: rgba(250, 250, 250, 0.842);
 }
 
 .app .buttons div {
@@ -26,10 +30,14 @@
   background-color: #eef0f1;
   color: #2f3640;
   height: 100%;
-  overflow-y: scroll;
+
   -ms-overflow-style: none;
   scrollbar-width: none;
   transition: ease-in-out 1000ms;
+}
+
+.appScrolled .main {
+  overflow: hidden;
 }
 
 .main h1 {

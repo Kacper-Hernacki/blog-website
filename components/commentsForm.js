@@ -101,7 +101,8 @@ export default function CommentsForm({ _id }) {
       {/* errors will return when field validation fails  */}
       {errors.exampleRequired && <span>This field is required</span>}
 
-      <Button className={styles.shareButton} type="submit">
+      <Button variant="contained" className={styles.shareButton} type="submit">
+        {' '}
         Submit
       </Button>
     </form>
