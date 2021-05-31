@@ -31,7 +31,9 @@ export const Toolbar = ({ content }) => {
         />
       )}
       <Button
-        onClick={() => router.push('/')}
+        onClick={() =>
+          (window.location.href = 'https://kacperhernacki.netifly.app')
+        }
         className={styles.aboutButton}
         variant="contained">
         About
