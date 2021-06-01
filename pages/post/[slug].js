@@ -34,25 +34,43 @@ import { dark } from '@material-ui/core/styles/createPalette';
 
 export async function getStaticProps({ params }) {
   const { slug } = params;
-  const query = groq`
-  *[_type == 'post' && slug.current == '${slug}'][0]{
-    ...,
-    'author': author->name,
-    'authorAvatar': author->avatarImage,
-    'authorImage': author->image,
-    'authorBio': author->bio,
-    'categories': categories[]->title,
-    'counter': counter,
-    'comments':*[_type == "comment" && post._ref == ^._id ]|order(publishedAt desc){    
-      _id, 
-      name, 
-      email, 
-      comment, 
-      _createdAt}
-  }
- `;
+  //   const query = groq`
+  //   *[_type == 'post' && slug.current == '${slug}'][0]{
+  //     ...,
+  //     'author': author->name,
+  //     'authorAvatar': author->avatarImage,
+  //     'authorImage': author->image,
+  //     'authorBio': author->bio,
+  //     'categories': categories[]->title,
+  //     'counter': counter,
+  //     'comments':*[_type == "comment" && post._ref == ^._id ]|order(publishedAt desc){
+  //       _id,
+  //       name,
+  //       email,
+  //       comment,
+  //       _createdAt}
+  //   }
+  //  `;
 
-  const data = await client.fetch(query);
+  //   const data = await client.fetch(query);
+
+  const data = await client.fetch(`
+   *[_type == 'post' && slug.current == '${slug}'][0]{
+     ...,
+     'author': author->name,
+     'authorAvatar': author->avatarImage,
+     'authorImage': author->image,
+     'authorBio': author->bio,
+     'categories': categories[]->title,
+     'counter': counter,
+     'comments':*[_type == "comment" && post._ref == ^._id ]|order(publishedAt desc){    
+       _id, 
+       name, 
+       email, 
+       comment, 
+       _createdAt}
+   }
+  `);
 
   return {
     revalidate: 60 * 60 * 24,
@@ -64,7 +82,7 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   return {
-    fallback: false,
+    fallback: true,
     paths: [],
   };
 }

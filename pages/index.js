@@ -18,8 +18,19 @@ import Avatar from '@material-ui/core/Avatar';
 import CookieConsent from 'react-cookie-consent';
 
 export async function getStaticProps() {
-  const query = groq`
-  {
+  // const query = groq`
+  // {
+  //   "posts": *[_type == "post"]|order(publishedAt desc){title, mainImage, publishedAt,slug,fragment,
+  //   'categories': categories[]->title,
+  //   'authorName': author->name,
+  //   'authorSlug': author->slug,
+  //   'authorAvatar': author->avatarImage,
+  //   'counter': counter,
+  // }
+  // }`;
+  // const data = await client.fetch(query);
+
+  const data = await client.fetch(` {
     "posts": *[_type == "post"]|order(publishedAt desc){title, mainImage, publishedAt,slug,fragment,
     'categories': categories[]->title,
     'authorName': author->name,
@@ -27,8 +38,7 @@ export async function getStaticProps() {
     'authorAvatar': author->avatarImage,
     'counter': counter,
   }
-  }`;
-  const data = await client.fetch(query);
+  }`);
 
   return {
     props: {
