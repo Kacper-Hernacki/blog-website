@@ -34,3 +34,5 @@ client.js
 
 # vercel
 .vercel
+
+_static

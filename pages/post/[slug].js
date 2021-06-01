@@ -32,13 +32,6 @@ import {
 } from 'react-share';
 import { dark } from '@material-ui/core/styles/createPalette';
 
-export function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: true,
-  };
-}
-
 export async function getStaticProps({ params }) {
   const { slug } = params;
   const query = groq`
@@ -66,6 +59,13 @@ export async function getStaticProps({ params }) {
     props: {
       post: data,
     },
+  };
+}
+
+export async function getStaticPaths() {
+  return {
+    fallback: false,
+    paths: [],
   };
 }
 
