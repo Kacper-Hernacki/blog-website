@@ -22,7 +22,6 @@
     "react-hook-form": "^7.6.0",
     "react-instagram-embed": "^2.0.0",
     "react-share": "^4.4.0",
-    "react-syntax-highlighter": "^15.4.3",
-  
+    "react-syntax-highlighter": "^15.4.3"
   }
 }
