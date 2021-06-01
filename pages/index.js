@@ -12,7 +12,6 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import MailIcon from '@material-ui/icons/Mail';
-import groq from 'groq';
 import client from '../client';
 import Avatar from '@material-ui/core/Avatar';
 import CookieConsent from 'react-cookie-consent';

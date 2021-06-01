@@ -3,7 +3,6 @@ import styles from '../../styles/Post.module.css';
 import imageUrlBuilder from '@sanity/image-url';
 import BlockContent from '@sanity/block-content-to-react';
 import { Toolbar } from '../../components/toolbar';
-import groq from 'groq';
 import client from '../../client';
 import { useRouter } from 'next/router';
 import DefaultErrorPage from 'next/error';
